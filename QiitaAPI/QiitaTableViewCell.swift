@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 class QiitaTableViewCell: UITableViewCell {
     
@@ -13,8 +14,8 @@ class QiitaTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     
-    func set(title:String,author:String) {
-        iconImageView.backgroundColor = .red
+    func set(title:String,author:String,imageUrl:String) {
+        Nuke.loadImage(with: URL(string: imageUrl)!, into: iconImageView)
         titleLabel.text = title
         authorLabel.text = author
     }
