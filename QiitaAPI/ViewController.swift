@@ -9,10 +9,10 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController{
-   
+    
     
     @IBOutlet weak var tableView: UITableView!
-    private var articles: [QiitaArticle] = [] // ②取得した記事一覧を保持しておくプロパティ
+    private var articles: [QiitaArticle] = [] 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,27 +26,27 @@ class ViewController: UIViewController{
         // Do any additional setup after loading the view.
     }
     private func loadArticles() {
-           AF.request("https://qiita.com/api/v2/tags/iOS/items").response { response in
-               guard let data = response.data else {
-                   return
-               }
-               let decoder = JSONDecoder()
-               do {
-                   let articles: [QiitaArticle] = try decoder.decode([QiitaArticle].self, from: data)
-                   self.articles = articles
-                   self.tableView.reloadData()
-               } catch {
-                   print(error)
-               }
-           }
-       }
+        AF.request("https://qiita.com/api/v2/tags/iOS/items").response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let articles: [QiitaArticle] = try decoder.decode([QiitaArticle].self, from: data)
+                self.articles = articles
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "QiitaTableViewCell", for: indexPath) as? QiitaTableViewCell else {
             return UITableViewCell()
