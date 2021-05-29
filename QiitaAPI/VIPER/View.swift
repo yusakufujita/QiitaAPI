@@ -4,6 +4,7 @@ import UIKit
 //ViewController
 //protocol
 //reference presenter
+//あああ
 
 protocol AnyView {
     var presenter:AnyPresenter? { get set }
